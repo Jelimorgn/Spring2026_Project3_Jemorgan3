@@ -1,22 +1,72 @@
+/* Keep the default footer and layout fixes */
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    html {
+        font-size: 16px;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px; /* Space for the footer */
+    background-color: #f4f7f6; /* Soft grey background */
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* --- NEW CUSTOM STYLING --- */
+
+/* Make the cards "pop" when you hover over them */
+.card {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    border-radius: 12px;
+    overflow: hidden; /* Keeps the images from spilling over rounded corners */
+}
+
+    .card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.15) !important;
+    }
+
+/* Ensure images in cards look consistent */
+.card-img-top {
+    object-fit: cover;
+    border-bottom: 1px solid #eee;
+}
+
+/* Styling for the Sentiment Badges */
+.badge {
+    padding: 0.6em 1em;
+    font-weight: 600;
+    border-radius: 6px;
+}
+
+/* Make the main content area look like a clean "Dashboard" */
+.main-container {
+    background-color: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+}
+
+/* Custom buttons */
+.btn {
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+/* Table styling for AI Reviews */
+.table {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table-dark {
+    background-color: #212529;
 }

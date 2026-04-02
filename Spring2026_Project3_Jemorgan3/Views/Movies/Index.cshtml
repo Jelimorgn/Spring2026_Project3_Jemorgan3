@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Spring2026_Project3_Jemorgan3.Models.Movie>
+
+@{
+    ViewData["Title"] = "Movie Collection";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>🎬 Movie Collection</h1>
+    <a asp-action="Create" class="btn btn-primary">+ Add New Movie</a>
+</div>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-3 mb-4">
+            <div class="card h-100 shadow-sm border-0">
+                @if (item.Poster != null)
+                {
+                    <img src="data:image/png;base64,@Convert.ToBase64String(item.Poster)"
+                         class="card-img-top" alt="@item.Title" style="height: 350px; object-fit: cover;" />
+                }
+                <div class="card-body">
+                    <h5 class="card-title text-truncate">@item.Title</h5>
+                    <p class="card-text text-muted">@item.Genre | @item.Year</p>
+                </div>
+                <div class="card-footer bg-white border-top-0 d-flex justify-content-between">
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info">Details</a>
+                    <div class="btn-group">
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-warning">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

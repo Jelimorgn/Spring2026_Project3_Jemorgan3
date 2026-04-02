@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Spring2026_Project3_Jemorgan3.Models.Actor>
+
+@{
+    ViewData["Title"] = "Actors";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>🎭 Actor Profiles</h1>
+    <a asp-action="Create" class="btn btn-dark">+ Add New Actor</a>
+</div>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-3 mb-4">
+            <div class="card h-100 text-center shadow-sm border-0">
+                <div class="p-3">
+                    @if (item.Photo != null)
+                    {
+                        <img src="data:image/png;base64,@Convert.ToBase64String(item.Photo)"
+                             class="rounded-circle shadow" alt="@item.Name"
+                             style="width: 120px; height: 120px; object-fit: cover;" />
+                    }
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">@item.Name</h5>
+                    <p class="badge bg-secondary">@item.Gender</p>
+                    <p class="text-muted">Age: @item.Age</p>
+                </div>
+                <div class="card-footer bg-transparent border-0 pb-3">
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-primary w-100 mb-1">View Analysis</a>
+                    <div class="d-flex justify-content-center gap-2">
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="text-warning text-decoration-none small">Edit</a>
+                        <span class="text-muted">|</span>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="text-danger text-decoration-none small">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
