@@ -4,33 +4,88 @@
     ViewData["Title"] = "Movie Collection";
 }
 
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h1>🎬 Movie Collection</h1>
-    <a asp-action="Create" class="btn btn-primary">+ Add New Movie</a>
-</div>
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="display-5">🎬 Movie Collection</h1>
+        <a asp-action="Create" class="btn btn-primary shadow-sm">+ Add New Movie</a>
+    </div>
 
-<div class="row">
-    @foreach (var item in Model)
-    {
-        <div class="col-md-3 mb-4">
-            <div class="card h-100 shadow-sm border-0">
-                @if (item.Poster != null)
-                {
-                    <img src="data:image/png;base64,@Convert.ToBase64String(item.Poster)"
-                         class="card-img-top" alt="@item.Title" style="height: 350px; object-fit: cover;" />
-                }
-                <div class="card-body">
-                    <h5 class="card-title text-truncate">@item.Title</h5>
-                    <p class="card-text text-muted">@item.Genre | @item.Year</p>
-                </div>
-                <div class="card-footer bg-white border-top-0 d-flex justify-content-between">
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info">Details</a>
-                    <div class="btn-group">
-                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-warning">Edit</a>
-                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Delete</a>
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                <div class="card h-100 shadow-sm border-0 rounded-3">
+                    
+                    <div class="position-relative">
+                        @if (item.Poster != null)
+                        {
+                            <img src="data:image/png;base64,@Convert.ToBase64String(item.Poster)"
+                                 class="card-img-top" alt="@item.Title" style="height: 350px; object-fit: cover;" />
+                        }
+                        else
+                        {
+                            <div class="bg-light d-flex align-items-center justify-content-center text-muted" style="height: 350px;">
+                                <span>No Poster</span>
+                            </div>
+                        }
+                        <span class="position-absolute top-0 end-0 badge bg-dark m-2 opacity-75">@item.Year</span>
+                    </div>
+
+                    <div class="card-body pb-0">
+                        <h5 class="card-title text-truncate mb-1" title="@item.Title">@item.Title</h5>
+                        <p class="card-text text-muted small">@item.Genre</p>
+                    </div>
+
+                    <div class="card-footer bg-white border-top-0 pt-2 pb-3">
+                        
+                        <div class="mb-3">
+                            <a asp-action="AssignActors" asp-route-id="@item.Id" class="btn btn-sm btn-primary w-100 shadow-sm py-2">
+                                <strong>+ Assign Actors</strong>
+                            </a>
+                        </div>
+
+                        <div class="row g-1 text-center">
+                            <div class="col-4">
+                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info w-100 px-0 py-1" style="font-size: 0.7rem; font-weight: bold;">
+                                    DETAILS
+                                </a>
+                            </div>
+                            <div class="col-4">
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-warning w-100 px-0 py-1" style="font-size: 0.7rem; font-weight: bold;">
+                                    EDIT
+                                </a>
+                            </div>
+                            <div class="col-4">
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger w-100 px-0 py-1" style="font-size: 0.7rem; font-weight: bold;">
+                                    DELETE
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+        }
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="text-center py-5">
+            <h3 class="text-muted">Your database is currently empty.</h3>
+            <p>Click the "Add New Movie" button above to get started!</p>
         </div>
     }
 </div>
+
+<style>
+    /* Prevent card scaling issues on hover */
+    .card {
+        transition: transform 0.2s ease-in-out;
+    }
+    .card:hover {
+        transform: translateY(-5px);
+    }
+    /* Ensure buttons stay consistent height */
+    .btn-outline-info, .btn-outline-warning, .btn-outline-danger {
+        border-width: 2px;
+    }
+</style>
